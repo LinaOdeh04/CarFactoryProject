@@ -1,7 +1,21 @@
+
 package factory;
 
+import observer.FactoryOwner;
+import observer.SalesInventory;
+
 public class FactoryTest {
+
     public static void main(String[] args) {
+
+        // Create sales inventory
+        SalesInventory inventory = new SalesInventory();
+
+        // Register factory owner as observer
+        FactoryOwner owner = new FactoryOwner();
+
+        inventory.attach(owner);
+
 
         // First customer: China, Midsize
 
@@ -18,6 +32,9 @@ public class FactoryTest {
         System.out.println(chinaCar.getDescription());
 
         chinaCar.formSize();
+
+        // Record first sale
+        inventory.recordSale(chinaCar);
 
 
         // Second customer: Middle East, Fullsize
@@ -36,5 +53,12 @@ public class FactoryTest {
         System.out.println(middleEastCar.getDescription());
 
         middleEastCar.formSize();
+
+        // Record second sale
+        inventory.recordSale(middleEastCar);
+
+
+        // Remove observer when monitoring is no longer needed
+        inventory.detach(owner);
     }
 }
